@@ -26,7 +26,7 @@ SMatrix<Node> createPathsMap_v1(Coord startPoint, SMatrix<uint32_t>& sourceMap, 
     }
 
     std::vector<std::pair<Coord, Node&>> queueWavefront;
-    queueWavefront.reserve(dimX*dimY);
+    queueWavefront.reserve(dimX*dimY*2);
 
     Node& startNode = pathsMap.data(startPoint);
     startNode.totalPathCost = 1;
@@ -52,6 +52,7 @@ SMatrix<Node> createPathsMap_v1(Coord startPoint, SMatrix<uint32_t>& sourceMap, 
             nextNode.totalPathCost = pathCost;
             nextNode.pathsFrom.clear();
             nextNode.pathsFrom.push_back(coord);
+            queueWavefront.push_back({nextNodeCoord, nextNode});
         }
     };
 
